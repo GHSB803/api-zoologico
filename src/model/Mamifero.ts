@@ -1,6 +1,8 @@
-class Mamifero extends Animal{
+import { Animal } from "./Animal";
+
+export class Mamifero extends Animal{
     private raca: string;
-    constructor(_raca: string, _nome: string, _idade: number, _genero: string ){
+    constructor(_nome: string, _raca: string, _genero: string, _idade: number,){
         super(_nome, _idade, _genero);
         this.raca = _raca
     }

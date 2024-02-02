@@ -1,15 +1,17 @@
-class Reptil extends Animal {
-    private escamas: number;
-    constructor(_escamas: number, _nome: string, _idade: number, _genero: string) {
+import { Animal } from "./Animal";
+
+export class Reptil extends Animal {
+    private escamas: string;
+    constructor(_nome: string, _escamas: string, _genero: string, _idade: number) {
         super(_nome, _idade, _genero);
         this.escamas = _escamas;
     }
 
-    public getEscamas(): number {
+    public getEscamas(): string {
         return this.escamas;
     }
 
-    public setEnvergadura(_envergadura: number): void {
-        this.escamas = _envergadura;
+    public setEnvergadura(_escamas: string): void {
+        this.escamas = _escamas;
     }
 }
