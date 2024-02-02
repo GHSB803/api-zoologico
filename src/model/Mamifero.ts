@@ -6,7 +6,7 @@ export class Mamifero extends Animal{
         super(_nome, _idade, _genero);
         this.raca = _raca
     }
-    
+
     public getRaca(): string {
         return this.raca;
     }
