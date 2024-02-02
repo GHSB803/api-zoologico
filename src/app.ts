@@ -8,8 +8,8 @@ server.use(express.json());
 server.use(cors());
 
 server.get('/', (req, res) => {
-    console.log('Tá chapano zé? Eu disse chamando lá no Isnomnia BUUUUUUUUUUURRRRRRRRRRRROOOOOOOO, da send de novo!!');
-    res.send({mensagem: 'EU disse que tão te chamando lá no VSCode!!!!'});
+    console.log('Recebi sua requisição');
+    res.send({mensagem: 'Olá Mundo!'});
 })
 
 server.listen(port, () => {
