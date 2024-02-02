@@ -11,11 +11,16 @@ server.use(express.json());
 server.use(cors());
  
 server.get('/', (req, res) => {
-    const { nome, genero, idade } = req.body;
-    const ave : Ave = new Ave('Harpia', 12, 'Masculino', 30);
-    const mamifero : Mamifero = new Mamifero('Cachorro', 'Rottweiler', 'Masculino', 8);
-    const reptil : Reptil = new Reptil('Jacaré', 'Córneas', 'Masculino', 42);
-    res.json(['Essa é a nova ave do zoológico!', ave]);
+    let ave : Ave = new Ave('Paraguaio', 12, 'Masculino', 30);
+    let mamifero : Mamifero = new Mamifero('Cachorro', 'Rottweiler', 'Masculino', 8);
+    let reptil : Reptil = new Reptil('Jacaré', 'Córneas', 'Masculino', 42);
+    res.json({ave, reptil, mamifero});
+})
+
+server.post('/', (req, res) => {
+    const { nome, genero, idade, envergadura } = req.body;
+    let ave : Ave = new Ave('nome', idade, 'genero', envergadura);
+    res.json(["A nova ave do zoológico é:", ave]);
 })
 
 server.listen(port, () => {
