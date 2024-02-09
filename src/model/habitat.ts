@@ -1,11 +1,11 @@
 import { Animal } from "./Animal";
 
-export class Habitat{
-   
+export class Habitat {
+
     private nome_zoologico: string;
     private lista_animais: Array<Animal>;
 
-    constructor( _nome_zoologico: string, _lista_animais: Array<Animal>){
+    constructor(_nome_zoologico: string, _lista_animais: Array<Animal>) {
         this.nome_zoologico = _nome_zoologico
         this.lista_animais = _lista_animais
     }

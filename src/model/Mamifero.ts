@@ -1,8 +1,8 @@
 import { Animal } from "./Animal";
 
-export class Mamifero extends Animal{
+export class Mamifero extends Animal {
     private raca: string;
-    constructor(_nome: string, _idade: number, _genero: string,  _raca: string){
+    constructor(_nome: string, _idade: number, _genero: string, _raca: string) {
         super(_nome, _idade, _genero)
         this.raca = _raca
     }

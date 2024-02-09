@@ -1,11 +1,11 @@
 import { Animal } from "./Animal";
 
-export class Atracao{
-   
+export class Atracao {
+
     private nome_atracao: string;
     private lista_atracao: Array<Animal>;
 
-    constructor( _nome_atracao: string, _lista_atracao: Array<Animal>){
+    constructor(_nome_atracao: string, _lista_atracao: Array<Animal>) {
         this.nome_atracao = _nome_atracao
         this.lista_atracao = _lista_atracao
     }

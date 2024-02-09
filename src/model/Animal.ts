@@ -8,20 +8,20 @@ export class Animal {
         this.idade = _idade;
         this.genero = _genero;
     }
-/**
-     * Retorna o nome do animal
-     *
-     * @returns _nome_zoologico : nome do animal
-     */
+    /**
+         * Retorna o nome do animal
+         *
+         * @returns _nome_zoologico : nome do animal
+         */
     public getNome(): string {
         return this.nome;
     }
 
-/**
-     * Atribui o nome do animal
-     *
-     * @param _nome : nome do animal
-     */
+    /**
+         * Atribui o nome do animal
+         *
+         * @param _nome : nome do animal
+         */
     public setNome(_nome: string): void {
         this.nome = _nome;
     }
@@ -52,11 +52,11 @@ export class Animal {
     public getGenero(): string {
         return this.genero;
     }
-/**
-     * Atribui o genêro do animal
-     *
-     * @param _genero : gênero do animal
-     */
+    /**
+         * Atribui o genêro do animal
+         *
+         * @param _genero : gênero do animal
+         */
     public setGenero(_genero: string): void {
         this.genero = _genero;
     }
