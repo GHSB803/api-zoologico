@@ -1,6 +1,6 @@
 import { Animal } from "./Animal";
 
-export class Habitat{
+export class Zoologico{
    
     private nome_zoologico: string;
     private lista_animais: Array<Animal>;

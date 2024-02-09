@@ -3,9 +3,7 @@ export class Animal {
     private idade: number;
     private genero: string;
 
-    constructor(_nome: string,
-        _idade: number,
-        _genero: string) {
+    constructor(_nome: string, _idade: number, _genero: string) {
         this.nome = _nome;
         this.idade = _idade;
         this.genero = _genero;

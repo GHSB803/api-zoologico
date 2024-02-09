@@ -1,0 +1,173 @@
+{
+    "_type": "export",
+    "__export_format": 4,
+    "__export_date": "2024-02-09T13:14:25.762Z",
+    "__export_source": "insomnia.desktop.app:v2023.5.7",
+    "resources": [
+        {
+            "_id": "req_60fb53c216b6487cb1ea4ba6cbe0c98b",
+            "parentId": "wrk_a6fbe1ea3bf24c3ca662d7ef878a9764",
+            "modified": 1707481865782,
+            "created": 1707480146716,
+            "url": "http://localhost:3000/habitat",
+            "name": "Cadastro Habitat",
+            "description": "",
+            "method": "POST",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n\t\"nome\": \"Selva\",\n\t\"animais\": [{\n\t\t\"nome\": \"Simba\",\n\t\t\"idade\": 2,\n\t\t\"genero\": \"Macho\",\n\t\t\"raca\": \"Leão\"\n\t},\n\t\t{\n\t\t\"nome\": \"Stue\",\n\t\t\"idade\": 3,\n\t\t\"genero\": \"Femea\",\n\t\t\"envergadura\": 0.8\n\t\t}\n\t]\n}"
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Insomnia/2023.5.7"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1707480146716,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "wrk_a6fbe1ea3bf24c3ca662d7ef878a9764",
+            "parentId": null,
+            "modified": 1707480102443,
+            "created": 1707480102443,
+            "name": "Zoologico",
+            "description": "",
+            "scope": "collection",
+            "_type": "workspace"
+        },
+        {
+            "_id": "req_26c2bc4815a1431486ec0793f7f3faa1",
+            "parentId": "wrk_a6fbe1ea3bf24c3ca662d7ef878a9764",
+            "modified": 1707481961742,
+            "created": 1707481881756,
+            "url": "http://localhost:3000/atracao",
+            "name": "Cadastro Atração",
+            "description": "",
+            "method": "POST",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n\t\"nome\": \"Rinha de galo\",\n\t\"habitat\": {\n\t\t\"nome\": \"Jungle\"\n\t}\n}"
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Insomnia/2023.5.7"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1707480125647,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_c0886287355a440fa188156490609f7c",
+            "parentId": "wrk_a6fbe1ea3bf24c3ca662d7ef878a9764",
+            "modified": 1707482078002,
+            "created": 1707481888727,
+            "url": "http://localhost:3000/zoologico",
+            "name": "Cadastro Zoológico",
+            "description": "",
+            "method": "POST",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n\t\"nome\": \"Zoooooooo\",\n\t\"atracao\": [{\n\t\t\"nome\": \"Rinha de galo\"\n\t},\n\t\t\t\t\t\t\t{\"nome\": \"Passeio de Jipe\"},\n\t\t\t\t\t\t\t{\"nome\": \"Apresentação de animais\"}\n\t\t\t\t\t\t ]\n}"
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Insomnia/2023.5.7"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1707480115112.5,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_ceeb770cba18416e9ab4a69a6aaf5f3f",
+            "parentId": "wrk_a6fbe1ea3bf24c3ca662d7ef878a9764",
+            "modified": 1707480144524,
+            "created": 1707480104578,
+            "url": "http://localhost:3000/",
+            "name": "Rota /",
+            "description": "",
+            "method": "GET",
+            "body": {},
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "Insomnia/2023.5.7"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1707480104578,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "env_aebc9495cb3322cc7dfc2a14a18553ac087af6ac",
+            "parentId": "wrk_a6fbe1ea3bf24c3ca662d7ef878a9764",
+            "modified": 1707480102449,
+            "created": 1707480102449,
+            "name": "Base Environment",
+            "data": {},
+            "dataPropertyOrder": null,
+            "color": null,
+            "isPrivate": false,
+            "metaSortKey": 1707480102449,
+            "_type": "environment"
+        },
+        {
+            "_id": "jar_aebc9495cb3322cc7dfc2a14a18553ac087af6ac",
+            "parentId": "wrk_a6fbe1ea3bf24c3ca662d7ef878a9764",
+            "modified": 1707480102451,
+            "created": 1707480102451,
+            "name": "Default Jar",
+            "cookies": [],
+            "_type": "cookie_jar"
+        }
+    ]
+}
