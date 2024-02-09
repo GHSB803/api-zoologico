@@ -7,10 +7,20 @@ export class Reptil extends Animal {
         this.escamas = _escamas;
     }
 
+    /**
+     * Retorna o tipo de escamas do réptil
+     *
+     * @returns _idade : de escamas do réptil
+     */
     public getEscamas(): string {
         return this.escamas;
     }
 
+    /**
+     * Retorna o tipo de escamas do réptil
+     *
+     * @param _escamas : tipo de escamas do réptil
+     */
     public setEnvergadura(_escamas: string): void {
         this.escamas = _escamas;
     }

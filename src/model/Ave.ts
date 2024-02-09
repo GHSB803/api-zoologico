@@ -7,10 +7,19 @@ export class Ave extends Animal {
         this.envergadura = _envergadura;
     }
 
+    /**
+     * Retorna a envergadura da ave
+     *
+     * @returns _idade : envergadura da ave
+     */
     public getEnvergadura(): number {
         return this.envergadura;
     }
-
+/**
+     * Atribui a envergadura da ave
+     *
+     * @param _envergadura : envergadura da ave
+     */
     public setEnvergadura(_envergadura: number): void {
         this.envergadura = _envergadura;
     }
