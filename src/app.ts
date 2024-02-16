@@ -20,24 +20,32 @@ server.get('/', (req, res) => {
     res.json([ave, reptil, mamifero]);
 })
 
+/*Representa uma ave no zoológico.
+Tem propriedades como nome, idade, gênero e envergadura.*/
 server.post('/ave', (req, res) => {
     const { nome, idade, genero, envergadura } = req.body;
     let ave: Ave = new Ave(nome, idade, genero, envergadura);
     res.json(["A nova ave do zoológico é:", ave]);
 })
 
+/*Representa um réptil no zoológico.
+Tem propriedades como nome, idade, gênero e tipo de escamas.*/
 server.post('/reptil', (req, res) => {
     const { nome, idade, genero, escamas } = req.body;
     let reptil: Reptil = new Reptil(nome, idade, genero, escamas);
     res.json(["A novo Reptíl do zoológico é:", reptil]);
 })
 
+/*Representa um mamífero no zoológico.
+Tem propriedades como nome, idade, gênero e raça.*/
 server.post('/mamifero', (req, res) => {
     const { nome, idade, genero, raca } = req.body;
     let mamifero: Mamifero = new Mamifero(nome, idade, genero, raca);
     res.json(["A novo mamífero do zoológico é:", mamifero]);
 })
 
+/*Representa um habitat no zoológico.
+Tem propriedades como nome e uma lista de animais que habitam nesse habitat.*/
 server.post('/habitat', (req, res) => {
     const { nome, lista_animais } = req.body;
     const habitat: Habitat = new Habitat(nome, lista_animais);
@@ -45,6 +53,8 @@ server.post('/habitat', (req, res) => {
     res.status(200).json('Habitat criado')
 })
 
+/*Representa uma atração no zoológico.
+Tem propriedades como nome e o habitat ao qual está associado.*/
 server.post('/atracao', (req, res) => {
     const { nome, habitat } = req.body;
     const atracao: Atracao = new Atracao(nome, habitat);
@@ -52,6 +62,8 @@ server.post('/atracao', (req, res) => {
     res.status(200).json('Atração criado')
 })
 
+/*Representa o zoológico em si.
+Tem propriedades como nome e uma lista de atrações que o zoológico possui.*/
 server.post('/zoologico', (req, res) => {
     const { nome, atracao } = req.body;
     const zoo: Zoologico = new Zoologico(nome, atracao);
