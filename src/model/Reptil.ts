@@ -1,3 +1,4 @@
+import { globalAgent } from "http";
 import { Animal } from "./Animal";
 import { DatabaseModel } from "./DatabaseModel";
 
@@ -14,15 +15,15 @@ export class Reptil extends Animal {
 
     /**
      * Cria uma nova instância de Reptil.
-     *
+     * 
      * @param _nome O nome do réptil.
      * @param _idade A idade do réptil.
      * @param _genero O gênero do réptil.
      * @param _tipo_escamas O tipo de escamas do réptil.
      */
-    constructor(_nome: string,
-                _idade: number,
-                _genero: string,
+    constructor(_nome: string, 
+                _idade: number, 
+                _genero: string, 
                 _tipo_escamas: string) {
         super(_nome, _idade, _genero);
         this.tipo_escamas = _tipo_escamas;
@@ -30,7 +31,7 @@ export class Reptil extends Animal {
 
     /**
      * Obtém o tipo de escamas do réptil.
-     *
+     * 
      * @returns O tipo de escamas do réptil.
      */
     public getTipoEscamas(): string {
@@ -39,7 +40,7 @@ export class Reptil extends Animal {
 
     /**
      * Define o tipo de escamas do réptil.
-     *
+     * 
      * @param _tipo_escamas O tipo de escamas a ser atribuído ao réptil.
      */
     public setTipoEscamas(_tipo_escamas: string): void {
@@ -49,7 +50,7 @@ export class Reptil extends Animal {
     static async listarRepteis() {
         const listaDeRepteis: Array<Reptil> = [];
         try {
-            const queryReturn = await database.query(`SELECT * FROM  reptil WHERE tipo_de_escamas = 'Escudos'`);
+            const queryReturn = await database.query(`SELECT * FROM  reptil;`);
             queryReturn.rows.forEach(reptil => {
                 listaDeRepteis.push(reptil);
             });
@@ -62,6 +63,23 @@ export class Reptil extends Animal {
             console.log('Erro no modelo');
             console.log(error);
             return "error";
+        }
+    }
+
+    static async cadastrarReptil(reptil: Reptil): Promise<any> {
+        try {
+            let insertResult = false;
+            await database.query(`INSERT INTO reptil (nome, idade, genero, tipo_de_escamas)
+                VALUES
+                ('${reptil.getNome().toUpperCase()}', ${reptil.getIdade()}, '${reptil.getGenero().toUpperCase()}', '${reptil.getTipoEscamas().toUpperCase()}');
+            `).then((result) => {
+                if(result.rowCount != 0) {
+                    insertResult = true;
+                }
+            });
+            return insertResult;
+        } catch(error) {
+            return error;
         }
     }
 }

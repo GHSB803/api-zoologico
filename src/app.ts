@@ -5,6 +5,8 @@ import { Atracao } from "./model/Atracao";
 import { Zoologico } from "./model/Zoologico";
 import { DatabaseModel } from "./model/DatabaseModel";
 import { Reptil } from "./model/Reptil";
+import { Mamifero } from "./model/Mamifero";
+import { Ave } from "./model/Ave";
 
 const server = express();
 const port: number = 3000;
@@ -41,6 +43,18 @@ server.get('/reptil', async (req, res) => {
     const repteis = await Reptil.listarRepteis();
 
     res.status(200).json(repteis);
+})
+
+server.get('/ave', async (req, res) => {
+    const aves = await Ave.listarAves();
+
+    res.status(200).json(aves);
+})
+
+server.get('/mamifero', async (req, res) => {
+    const mamifero = await Mamifero.listarMamiferos();
+
+    res.status(200).json(mamifero);
 })
 
 new DatabaseModel().testeConexao().then((resbd) => {
