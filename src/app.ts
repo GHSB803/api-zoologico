@@ -1,76 +1,54 @@
-import express from 'express';
-import cors from 'cors';
-import { Ave } from './model/Ave';
-import { Mamifero } from './model/Mamifero';
-import { Reptil } from './model/Reptil';
-import { Habitat } from './model/Habitat';
-import { Atracao } from './model/Atracao';
-import { Zoologico } from './model/Zoologico';
+import express from "express";
+import cors from "cors";
+import { Habitat } from "./model/Habitat";
+import { Atracao } from "./model/Atracao";
+import { Zoologico } from "./model/Zoologico";
+import { DatabaseModel } from "./model/DatabaseModel";
+import { Reptil } from "./model/Reptil";
 
-const port = 3000;
 const server = express();
+const port: number = 3000;
 
 server.use(express.json());
 server.use(cors());
 
 server.get('/', (req, res) => {
-    let ave: Ave = new Ave('Paraguaio', 12, 'Macho', 60);
-    let reptil: Reptil = new Reptil('Jacaré', 42, 'Macho', 'Córneas');
-    let mamifero: Mamifero = new Mamifero('Urso', 8, 'Fêmea', 'Pardo');
-    res.json([ave, reptil, mamifero]);
-})
+    res.json("ola");
+});
 
-/*Representa uma ave no zoológico.
-Tem propriedades como nome, idade, gênero e envergadura.*/
-server.post('/ave', (req, res) => {
-    const { nome, idade, genero, envergadura } = req.body;
-    let ave: Ave = new Ave(nome, idade, genero, envergadura);
-    res.json(["A nova ave do zoológico é:", ave]);
-})
-
-/*Representa um réptil no zoológico.
-Tem propriedades como nome, idade, gênero e tipo de escamas.*/
-server.post('/reptil', (req, res) => {
-    const { nome, idade, genero, escamas } = req.body;
-    let reptil: Reptil = new Reptil(nome, idade, genero, escamas);
-    res.json(["A novo Reptíl do zoológico é:", reptil]);
-})
-
-/*Representa um mamífero no zoológico.
-Tem propriedades como nome, idade, gênero e raça.*/
-server.post('/mamifero', (req, res) => {
-    const { nome, idade, genero, raca } = req.body;
-    let mamifero: Mamifero = new Mamifero(nome, idade, genero, raca);
-    res.json(["A novo mamífero do zoológico é:", mamifero]);
-})
-
-/*Representa um habitat no zoológico.
-Tem propriedades como nome e uma lista de animais que habitam nesse habitat.*/
 server.post('/habitat', (req, res) => {
-    const { nome, lista_animais } = req.body;
-    const habitat: Habitat = new Habitat(nome, lista_animais);
+    const { nome, animais } = req.body;
+    const habitat = new Habitat(nome, animais);
     console.log(habitat);
-    res.status(200).json('Habitat criado')
-})
+    res.status(200).json('Habitat criado');
+});
 
-/*Representa uma atração no zoológico.
-Tem propriedades como nome e o habitat ao qual está associado.*/
 server.post('/atracao', (req, res) => {
     const { nome, habitat } = req.body;
-    const atracao: Atracao = new Atracao(nome, habitat);
+    const atracao = new Atracao(nome, habitat);
     console.log(atracao);
-    res.status(200).json('Atração criado')
-})
+    res.status(200).json('Atração criada');
+});
 
-/*Representa o zoológico em si.
-Tem propriedades como nome e uma lista de atrações que o zoológico possui.*/
 server.post('/zoologico', (req, res) => {
     const { nome, atracao } = req.body;
-    const zoo: Zoologico = new Zoologico(nome, atracao);
+    const zoo = new Zoologico(nome, atracao);
     console.log(zoo);
-    res.status(200).json('Zoologico criado')
+    res.status(200).json('Zoológico criado');
+});
+
+server.get('/reptil', async (req, res) => {
+    const repteis = await Reptil.listarRepteis();
+
+    res.status(200).json(repteis);
 })
 
-server.listen(port, () => {
-    console.log(`Servidor está executando no endereço http://localhost:${port}`);
+new DatabaseModel().testeConexao().then((resbd) => {
+    if(resbd) {
+        server.listen(port, () => {
+            console.log(`Servidor rodando em http://localhost:${port}`);
+        })
+    } else {
+        console.log('Não foi possível conectar ao banco de dados');
+    }
 })

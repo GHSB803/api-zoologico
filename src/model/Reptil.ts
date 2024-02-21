@@ -1,27 +1,67 @@
 import { Animal } from "./Animal";
+import { DatabaseModel } from "./DatabaseModel";
 
+const database = new DatabaseModel().pool;
+
+/**
+ * Representa um réptil no zoológico, que é uma subclasse de Animal.
+ */
 export class Reptil extends Animal {
-    private escamas: string;
-    constructor(_nome: string, _idade: number, _genero: string, _escamas: string) {
-        super(_nome, _idade, _genero)
-        this.escamas = _escamas;
+    /**
+     * O tipo de escamas do réptil.
+     */
+    private tipo_escamas: string;
+
+    /**
+     * Cria uma nova instância de Reptil.
+     *
+     * @param _nome O nome do réptil.
+     * @param _idade A idade do réptil.
+     * @param _genero O gênero do réptil.
+     * @param _tipo_escamas O tipo de escamas do réptil.
+     */
+    constructor(_nome: string,
+                _idade: number,
+                _genero: string,
+                _tipo_escamas: string) {
+        super(_nome, _idade, _genero);
+        this.tipo_escamas = _tipo_escamas;
     }
 
     /**
-     * Retorna o tipo de escamas do réptil
+     * Obtém o tipo de escamas do réptil.
      *
-     * @returns _idade : de escamas do réptil
+     * @returns O tipo de escamas do réptil.
      */
-    public getEscamas(): string {
-        return this.escamas;
+    public getTipoEscamas(): string {
+        return this.tipo_escamas;
     }
 
     /**
-     * Retorna o tipo de escamas do réptil
+     * Define o tipo de escamas do réptil.
      *
-     * @param _escamas : tipo de escamas do réptil
+     * @param _tipo_escamas O tipo de escamas a ser atribuído ao réptil.
      */
-    public setEnvergadura(_escamas: string): void {
-        this.escamas = _escamas;
+    public setTipoEscamas(_tipo_escamas: string): void {
+        this.tipo_escamas = _tipo_escamas;
+    }
+
+    static async listarRepteis() {
+        const listaDeRepteis: Array<Reptil> = [];
+        try {
+            const queryReturn = await database.query(`SELECT * FROM  reptil WHERE tipo_de_escamas = 'Escudos'`);
+            queryReturn.rows.forEach(reptil => {
+                listaDeRepteis.push(reptil);
+            });
+
+            // só pra testar se a lista veio certa do banco
+            console.log(listaDeRepteis);
+
+            return listaDeRepteis;
+        } catch (error) {
+            console.log('Erro no modelo');
+            console.log(error);
+            return "error";
+        }
     }
 }
