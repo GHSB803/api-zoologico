@@ -1,68 +1,212 @@
-import express from "express";
-import cors from "cors";
-import { Habitat } from "./model/Habitat";
-import { Atracao } from "./model/Atracao";
-import { Zoologico } from "./model/Zoologico";
-import { DatabaseModel } from "./model/DatabaseModel";
-import { Reptil } from "./model/Reptil";
-import { Mamifero } from "./model/Mamifero";
-import { Ave } from "./model/Ave";
+import express from 'express';
+import cors from 'cors';
+import { Ave } from './model/Ave';
+import { Habitat } from './model/Habitat';
+import { Atracao } from './model/Atracao';
+import { DatabaseModel } from './model/DatabaseModel';
 
 const server = express();
-const port: number = 3000;
+const port = 3000;
 
 server.use(express.json());
 server.use(cors());
 
+// Rota padrão para testes (NÃO USAR EM AMBIENTE PRODUÇÃO)
 server.get('/', (req, res) => {
-    res.json("ola");
+    res.send('Hello World!');
 });
 
-server.post('/habitat', (req, res) => {
-    const { nome, animais } = req.body;
-    const habitat = new Habitat(nome, animais);
-    console.log(habitat);
-    res.status(200).json('Habitat criado');
+server.post('/login', (req, res) => {
+    const { username, password } = req.body;
+    console.log(`Informações: ${username} - ${password}`);
 });
 
-server.post('/atracao', (req, res) => {
-    const { nome, habitat } = req.body;
-    const atracao = new Atracao(nome, habitat);
-    console.log(atracao);
-    res.status(200).json('Atração criada');
-});
-
-server.post('/zoologico', (req, res) => {
-    const { nome, atracao } = req.body;
-    const zoo = new Zoologico(nome, atracao);
-    console.log(zoo);
-    res.status(200).json('Zoológico criado');
-});
-
-server.get('/reptil', async (req, res) => {
-    const repteis = await Reptil.listarRepteis();
-
-    res.status(200).json(repteis);
-})
-
-server.get('/ave', async (req, res) => {
+/**
+ * Listar informações cadastradas no banco de dados
+ */
+// Listar todos as aves cadastradas
+server.get('/listar-aves', async (req, res) => {
+    // cria objeto aves e atribui a ele o retorno do método listarAves
     const aves = await Ave.listarAves();
 
+    // retorna a lista de aves em formato json
     res.status(200).json(aves);
-})
+});
 
-server.get('/mamifero', async (req, res) => {
-    const mamifero = await Mamifero.listarMamiferos();
+// Listar todos os habitats cadastradas
+server.get('/habitats', async (req, res) => {
+    // cria objeto habitats e atribui a ele o retorno do método listarHabitats
+    const habitats = await Habitat.listarHabitats();
 
-    res.status(200).json(mamifero);
-})
+    // retorna a lista de habitats em formato json
+    res.status(200).json(habitats);
+});
+
+// Listar todas as atrações cadastradas
+server.get('/atracoes', async (req, res) => {
+    // cria objeto atracoes e atribui a ele o retorno do método listarAtracoes
+    const atracoes = await Atracao.listarAtracoes();
+
+    // retorna a lista de atracoes em formato json
+    res.status(200).json(atracoes);
+});
+
+/**
+ * Cadastrar informações no sistema
+ */
+// Cadastra informações de uma nova ave
+server.post('/novo/ave', async (req, res) => {
+    // Desestruturando objeto recebido pelo front-end
+    const { nome, idade, genero, envergadura, idHabitat } = req.body;
+
+    // Instanciando objeto Ave
+    const novaAve = new Ave(nome, idade, genero, envergadura);
+
+    // Chama o método para persistir a ave no banco de dados
+    const result = await Ave.cadastrarAve(novaAve, idHabitat);
+
+    // Verifica se a query foi executada com sucesso
+    if (result) {
+        return res.status(200).json('Ave cadastrado com sucesso');
+    } else {
+        return res.status(400).json('Não foi possível cadastrar o ave no banco de dados');
+    }
+});
+
+// Cadastra informações de um novo habitat
+server.post('/novo/habitat', async (req, res) => {
+    // Desestruturando objeto recebido pelo front-end
+    const { nomeHabitat } = req.body;
+
+    // Instanciando objeto Habitat
+    const novoHabitat = new Habitat(nomeHabitat);
+
+    // Chama o método para persistir o habitat no banco de dados
+    const result = await Habitat.cadastrarHabitat(novoHabitat);
+
+    // Verifica se a query foi executada com sucesso
+    if (result) {
+        return res.status(200).json('Habitat cadastrado com sucesso');
+    } else {
+        return res.status(400).json('Não foi possível cadastrar o habitat no banco de dados');
+    }
+});
+
+// Cadastra informações de uma nova atracao
+server.post('/novo/atracao', async (req, res) => {
+    // Desestruturando objeto recebido pelo front-end
+    const { nomeAtracao, idHabitat } = req.body;
+
+    // Instanciando objeto Ave
+    const novaAtracao = new Atracao(nomeAtracao);
+
+    let result = false;
+
+    // verifica se o idHabitat não veio vazio do front-end
+    if (idHabitat != undefined) {
+        // Chama o método para persistir a atracao no banco de dados associando ao id
+        result = await Atracao.cadastrarAtracao(novaAtracao, idHabitat);
+    } else {
+        // Chama o método para persistir a atracao no banco de dados
+        result = await Atracao.cadastrarAtracao(novaAtracao);
+    }
+
+    // verifica se a query foi executada com sucesso
+    if (result) {
+        return res.status(200).json('Atração cadastrado com sucesso');
+    } else {
+        return res.status(400).json('Não foi possível cadastrar a atração no banco de dados');
+    }
+});
+
+    server.delete('/remover/animal', async (req, res) => {
+        const idAnimal  = parseInt(req.query.idAnimal as string);
+
+        const resultado = await  Ave.removerAve(idAnimal);
+        if(resultado) {
+            res.status(200).json('Animal foi removido com sucesso');
+        } else {
+            res.status(401).json('Erro ao remover animal');
+        }
+       
+    });
+
+    server.delete('/remover/habitat', async (req, res) => {
+        const idHabitat  = parseInt(req.query.idHabitat as string);
+
+        const resultado = await  Ave.removerAve(idHabitat);
+        if(resultado) {
+            res.status(200).json('Habitat foi removido com sucesso');
+        } else {
+            res.status(401).json('Erro ao remover habitat');
+        }
+       
+    });
+
+    server.delete('/remover/atracao', async (req, res) => {
+        const idAtracao  = parseInt(req.query.idAtracao as string);
+
+        const resultado = await  Ave.removerAve(idAtracao);
+        if(resultado) {
+            res.status(200).json('Atração foi removido com sucesso');
+        } else {
+            res.status(401).json('Erro ao remover atração');
+        }
+       
+    });
+
+    server.put('/atualizar/animal', async (req,res) => {
+        const {nome, idade, genero, envergadura} = req.body;
+        const idAnimal = parseInt(req.query.idAnimal as string);
+
+        const novaAve = new Ave(nome, idade, genero, envergadura);
+
+        const result = await Ave.atualizarAve(novaAve, idAnimal);
+
+        if(result) {
+            res.status(200).json('Ave foi alterado com sucesso');
+        } else {
+            res.status(401).json('Erro ao alterar ave');
+        }
+    })
+
+    server.put('/atualizar/habitat', async (req,res) => {
+        const {nome} = req.body;
+        const idHabitat = parseInt(req.query.idHabitat as string);
+
+        const novoHabitat = new Habitat(nome);
+
+        const result = await Habitat.atualizarHabitat(novoHabitat, idHabitat );
+
+        if(result) {
+            res.status(200).json('Habitat foi alterado com sucesso');
+        } else {
+            res.status(401).json('Erro ao alterar habitat');
+        }
+    })
+
+    server.put('/atualizar/atracao', async (req,res) => {
+        const {nome} = req.body;
+        const idAtracao = parseInt(req.query.idAtracao as string);
+
+        const novaAtracao = new Atracao(nome);
+
+        const result = await Atracao.atualizarAtracao(novaAtracao, idAtracao );
+
+        if(result) {
+            res.status(200).json('Atração foi alterado com sucesso');
+        } else {
+            res.status(401).json('Erro ao alterar atração');
+        }
+    })
+
 
 new DatabaseModel().testeConexao().then((resbd) => {
     if(resbd) {
         server.listen(port, () => {
-            console.log(`Servidor rodando em http://localhost:${port}`);
+            console.info(`Servidor executando no endereço http://localhost:${port}/`);
         })
     } else {
-        console.log('Não foi possível conectar ao banco de dados');
+        console.log(`Não foi possível conectar ao banco de dados`);
     }
 })
